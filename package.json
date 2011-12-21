@@ -1,0 +1,25 @@
+{
+  "name": "load-balancer",
+  "version": "0.0.1",
+  "description": "A full-featured http load-balancer for node.js",
+  "author": "",
+  "contributors": [
+    { "name": "", "email": "" }, 
+  ],
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/glesperance/node-load-balancer.git" 
+  },
+  "keywords": ["load","balancer","lean","ab", "testing","reverse", "proxy", "http"],
+  "dependencies": {
+
+  },
+  "devDependencies": {
+  },
+  "main": "./lib/node-load-balancer",
+  "bin": { "node-http-proxy": "./bin/node-http-proxy" },
+  "scripts": { 
+  
+  },
+  "engines": { "node": "0.4.x || 0.5.x" }
+}
