@@ -12,7 +12,9 @@
   },
   "keywords": ["load","balancer","lean","ab", "testing","reverse", "proxy", "http"],
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "jasmine-node": "~1.0.13"
+  },
   "main": "./lib/node-load-balancer",
   "scripts": {},
   "engines": { "node": "0.4.x || 0.5.x" }
