@@ -4,21 +4,16 @@
   "description": "A full-featured http load-balancer for node.js",
   "author": "",
   "contributors": [
-    { "name": "", "email": "" }, 
+    ""
   ],
   "repository": {
     "type": "git",
     "url": "http://github.com/glesperance/node-load-balancer.git" 
   },
   "keywords": ["load","balancer","lean","ab", "testing","reverse", "proxy", "http"],
-  "dependencies": {
-
-  },
-  "devDependencies": {
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "main": "./lib/node-load-balancer",
-  "scripts": { 
-  
-  },
+  "scripts": {},
   "engines": { "node": "0.4.x || 0.5.x" }
 }
