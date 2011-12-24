@@ -1,4 +1,4 @@
-var generate = require("../lib/node-load-balancer/id-generator").generate;
+var generate = require("../lib/node-load-balancer/id-generator");
 
 describe("id-generator", function(){
   describe("generate", function(){
