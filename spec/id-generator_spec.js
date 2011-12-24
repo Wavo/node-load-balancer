@@ -22,5 +22,10 @@ describe("id-generator", function(){
       ids[0]
       expect(ids[0]).toNotEqual(ids[1]);
     });
+
+    it("should generate the id with length passed in as options", function(){
+      generate({length: 32}, callback);
+      expect(ids[1].length).toEqual(32);
+    });
   });
 });
