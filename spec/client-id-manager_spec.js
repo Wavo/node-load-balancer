@@ -8,7 +8,6 @@ describe("client-id-manager", function(){
   it("should throw exception from returned function when req does not have cookies", function(){
     var middleware = clientIdManager();
     expect(function(){ middleware({}, {}, function(){}); }).toThrow(middleware.cookieDecoderError);
-
   });
 
 });
