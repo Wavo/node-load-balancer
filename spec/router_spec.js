@@ -15,5 +15,16 @@ describe("router", function(){
       expect(router.config).toEqual(config);
     });
   });
+
+  describe("#mapId", function(){
+    var expected = [];
+
+    it("should return ...", function(){
+      expect(router.mapId(3220264594410000)).toEqual([ 'ClassA', '0.0.1' ]);
+      expect(router.mapId(3220264594410700)).toEqual([ 'ClassA', '0.2.3' ]);
+      expect(router.mapId(3220264594410745)).toEqual([ 'ClassA', '0.2.4Alpha' ]);
+      expect(router.mapId(3220519812119999)).toEqual([ 'ClassB', '0.1' ]);
+    });
+  });
 });
 
