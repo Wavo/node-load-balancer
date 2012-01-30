@@ -43,7 +43,7 @@ describe("Router", function(){
   describe("#addInstance", function(){
     var table = {
       ClassA : { 
-        "0.0.1" : [ { host : '127.0.0.1', port : 9000 } ], 
+        "0.0.1" : [ { host : '127.0.0.1', port : 9000, connections: 0 } ], 
         "0.2.3" : [  ], 
         "0.2.4Alpha" : [  ] 
       }, 
@@ -65,14 +65,14 @@ describe("Router", function(){
     });
 
     it("should not add two instaces with same host/port pair", function(){
-      router.addInstance(instance)
+      router.addInstance(instance);
       expect(router.addInstance(instance).routingTable).toEqual(table);
     });
 
     it("should add instance more than one intance inside the array", function(){
       var table = { 
         ClassA : { 
-          "0.0.1" : [ { host : '127.0.0.1', port : 9000 }, { host : '127.0.0.1', port : 9001 } ], 
+          "0.0.1" : [ { host : '127.0.0.1', port : 9000, connections: 0 }, { host : '127.0.0.1', port : 9001, connections: 0 } ], 
           "0.2.3" : [  ], 
           "0.2.4Alpha" : [  ] 
         }, 
@@ -89,10 +89,15 @@ describe("Router", function(){
     beforeEach(function(){
       router.readConfig();
       router.addInstance(instance)
+      router.addInstance({class: 'ClassA', version: '0.0.1', host: '127.0.0.1', port: 9001});
     });
 
     it("should choose the only available instance", function(){
-      expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000 });
+      expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 0 });
+    });
+
+    it("should return null if there is no available instance", function(){
+      expect(router.chooseInstance(3220264594410700)).toEqual(null);
     });
   });
 
