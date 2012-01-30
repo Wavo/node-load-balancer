@@ -96,7 +96,24 @@ describe("Router", function(){
       expect(router.chooseInstance(3220264594410700)).toEqual(null);
     });
 
-    describe("when routing algorithm is LeastConnections", function(){
+    describe("when routing algorithm is roundRobin", function(){
+      beforeEach(function(){
+        router.config.routingAlgorithm = "roundRobin";
+      });
+
+
+      it("should choose the next instance available", function(){
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 0 });
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9001, connections: 0 });
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 0 });
+      });
+
+      afterEach(function(){
+        router.config.routingAlgorithm = "leastConnections";
+      });
+    });
+
+    describe("when routing algorithm is leastConnections", function(){
       it("should choose the first instance when all of them have the same connection count", function(){
         expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 0 });
       });
@@ -108,6 +125,8 @@ describe("Router", function(){
         expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 1 });
         router.routingTable['ClassA']['0.0.1'][0].connections = 2;
         expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9001, connections: 1 });
+        router.routingTable['ClassA']['0.0.1'][0].connections = 0;
+        router.routingTable['ClassA']['0.0.1'][1].connections = 0;
       });
     });
   });
