@@ -92,12 +92,23 @@ describe("Router", function(){
       router.addInstance({class: 'ClassA', version: '0.0.1', host: '127.0.0.1', port: 9001});
     });
 
-    it("should choose the only available instance", function(){
-      expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 0 });
-    });
-
     it("should return null if there is no available instance", function(){
       expect(router.chooseInstance(3220264594410700)).toEqual(null);
+    });
+
+    describe("when routing algorithm is LeastConnections", function(){
+      it("should choose the first instance when all of them have the same connection count", function(){
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 0 });
+      });
+
+      it("should choose the instance with least connections available", function(){
+        router.routingTable['ClassA']['0.0.1'][0].connections = 1;
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9001, connections: 0 });
+        router.routingTable['ClassA']['0.0.1'][1].connections = 1;
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000, connections: 1 });
+        router.routingTable['ClassA']['0.0.1'][0].connections = 2;
+        expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9001, connections: 1 });
+      });
     });
   });
 
