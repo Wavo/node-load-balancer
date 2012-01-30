@@ -2,6 +2,12 @@ var Router = require("../lib/node-load-balancer/router");
 
 describe("Router", function(){
   var router = new Router();
+  var instance = {
+    class: 'ClassA',
+    version: '0.0.1',
+    host: '127.0.0.1',
+    port: 9000
+  };
 
   it("should build a Router object", function(){
     expect(router).toEqual(jasmine.any(Router));
@@ -45,12 +51,6 @@ describe("Router", function(){
         "0.1" : [  ] 
       } 
     };
-    var instance = {
-      class: 'ClassA',
-      version: '0.0.1',
-      host: '127.0.0.1',
-      port: 9000
-    };
 
     beforeEach(function(){
       router.readConfig();
@@ -82,6 +82,17 @@ describe("Router", function(){
       };
       router.addInstance(instance);
       expect(router.addInstance({class: 'ClassA', version: '0.0.1', host: '127.0.0.1', port: 9001}).routingTable).toEqual(table);
+    });
+  });
+
+  describe("#chooseInstance", function(){
+    beforeEach(function(){
+      router.readConfig();
+      router.addInstance(instance)
+    });
+
+    it("should choose the only available instance", function(){
+      expect(router.chooseInstance(3220264594410000)).toEqual({ host: '127.0.0.1', port: 9000 });
     });
   });
 
