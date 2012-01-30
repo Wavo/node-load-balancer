@@ -55,9 +55,6 @@ describe("Router", function(){
     beforeEach(function(){
       router.readConfig();
     });
-    // Is this necessary? we could populate the config dynamicaly
-    it("should throw an execption if the instance class and version are not in the config", function(){
-    });
 
     it("should return the router instance", function(){
       expect(router.addInstance(instance)).toEqual(router);
