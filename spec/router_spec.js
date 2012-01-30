@@ -10,19 +10,51 @@ describe("Router", function(){
   describe("#readConfig", function(){
     var configReader = require("../lib/node-load-balancer/configuration-reader");
     var config = configReader('./spec/fixtures/config.json');
-    it("should read config file from fixtures into configuration attribute", function(){
+
+    beforeEach(function(){
       router.readConfig();
+    });
+
+    it("should read config file from fixtures into configuration attribute", function(){
       expect(router.config).toEqual(config);
+    });
+
+    it("should populate the routing table", function(){
+      var table = {
+        "ClassA" : {
+          "0.0.1" : []
+          , "0.2.3" : []
+          , "0.2.4Alpha" : []
+        }
+        , "ClassB" : { 
+          "0.1" : []
+        } 
+      };
+      expect(router.routingTable).toEqual(table);
     });
   });
 
   describe("#addInstance", function(){
+    var table = {
+      ClassA : { 
+        "0.0.1" : [ { host : '127.0.0.1', port : 9000 } ], 
+        "0.2.3" : [  ], 
+        "0.2.4Alpha" : [  ] 
+      }, 
+      ClassB : { 
+        "0.1" : [  ] 
+      } 
+    };
     var instance = {
       class: 'ClassA',
       version: '0.0.1',
       host: '127.0.0.1',
       port: 9000
     };
+
+    beforeEach(function(){
+      router.readConfig();
+    });
     // Is this necessary? we could populate the config dynamicaly
     it("should throw an execption if the instance class and version are not in the config", function(){
     });
@@ -32,8 +64,27 @@ describe("Router", function(){
     });
 
     it("should add instance to intances inside the right class/version array", function(){
-      //test code
-      expect(router.mapId(3220264594410000)).toEqual([ 'ClassA', '0.0.1' ]);
+      expect(router.addInstance(instance).routingTable).toEqual(table);
+    });
+
+    it("should not add two instaces with same host/port pair", function(){
+      router.addInstance(instance)
+      expect(router.addInstance(instance).routingTable).toEqual(table);
+    });
+
+    it("should add instance more than one intance inside the array", function(){
+      var table = { 
+        ClassA : { 
+          "0.0.1" : [ { host : '127.0.0.1', port : 9000 }, { host : '127.0.0.1', port : 9001 } ], 
+          "0.2.3" : [  ], 
+          "0.2.4Alpha" : [  ] 
+        }, 
+        ClassB : { 
+          "0.1" : [  ] 
+        } 
+      };
+      router.addInstance(instance);
+      expect(router.addInstance({class: 'ClassA', version: '0.0.1', host: '127.0.0.1', port: 9001}).routingTable).toEqual(table);
     });
   });
 
