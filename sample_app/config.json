@@ -1,5 +1,5 @@
 {
-  "routingAlgorithm" : "leastConnections"
+  "routingAlgorithm" : "roundRobin"
   , "precision" : 0.001
   , "classes" : { 
     "ClassA" : {
