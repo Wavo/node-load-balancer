@@ -1,7 +1,13 @@
 var dispatcher = require("../lib/node-load-balancer/dispatcher");
 
 describe("dispatcher", function(){
-  var middleware = dispatcher({path: './spec/fixtures/config.json'});
+  var middleware = dispatcher({
+    path: './spec/fixtures/config_with_fixed_data.json', 
+    beforeRoute: function(router){
+      spyOn(router, "route");
+    } 
+  });
+
   var next = jasmine.createSpy('next');
   var res = {
     on: function(event, callback){
@@ -9,7 +15,9 @@ describe("dispatcher", function(){
     },
     setHeader: function(){}
   };
-  var req = {cookies: {nlbclientid: '3220264594410000'}};
+  var req = {
+    cookies: {nlbclientid: '3220264594410000'}
+  };
 
   beforeEach(function(){
     spyOn(res, "on").andCallThrough();

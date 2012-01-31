@@ -25,6 +25,21 @@ describe("Router", function(){
       expect(router.config).toEqual(config);
     });
 
+    it("should populate the routing table with fixed instance data if available", function(){
+      var table = {
+        "ClassA" : {
+          "0.0.1" : [ { host : '127.0.0.1', port : 9000, connections: 0 } ]
+          , "0.2.3" : []
+          , "0.2.4Alpha" : []
+        }
+        , "ClassB" : { 
+          "0.1" : []
+        } 
+      };
+      router.readConfig('./spec/fixtures/config_with_fixed_data.json');
+      expect(router.routingTable).toEqual(table);
+    });
+
     it("should populate the routing table", function(){
       var table = {
         "ClassA" : {
