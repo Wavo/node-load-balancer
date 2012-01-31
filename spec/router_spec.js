@@ -18,7 +18,7 @@ describe("Router", function(){
     var config = configReader('./spec/fixtures/config.json');
 
     beforeEach(function(){
-      router.readConfig();
+      router.readConfig('./spec/fixtures/config.json');
     });
 
     it("should read config file from fixtures into configuration attribute", function(){
@@ -53,7 +53,7 @@ describe("Router", function(){
     };
 
     beforeEach(function(){
-      router.readConfig();
+      router.readConfig('./spec/fixtures/config.json');
     });
 
     it("should return the router instance", function(){
@@ -101,7 +101,7 @@ describe("Router", function(){
 
   describe("#chooseInstance", function(){
     beforeEach(function(){
-      router.readConfig();
+      router.readConfig('./spec/fixtures/config.json');
       router.addInstance(instance)
       router.addInstance({class: 'ClassA', version: '0.0.1', host: '127.0.0.1', port: 9001});
     });
