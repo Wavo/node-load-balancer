@@ -9,10 +9,11 @@ describe("client-id-manager", function(){
     },
     setHeader: function(){}
   };
-  var req = {cookies: {}};
+  var req = {};
 
   beforeEach(function(){
     spyOn(res, "on").andCallThrough();
+    req.cookies = {};
   });
 
   it("should return a function", function(){
@@ -35,6 +36,11 @@ describe("client-id-manager", function(){
     middleware(req, res, next);
     expect(res.on).toHaveBeenCalledWith('header', jasmine.any(Function));
     expect(res.setHeader).toHaveBeenCalledWith('Set-Cookie', jasmine.any(String));
+  });
+
+  it("should set req.cookies", function(){
+    middleware(req, res, next);
+    expect(req.cookies['nlbclientid']).toMatch(/\d+/);
   });
 
   it("should not call anything in head event callback if there is NLBClientID already in cookies", function(){
