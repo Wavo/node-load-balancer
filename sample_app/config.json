@@ -1,0 +1,20 @@
+{
+  "routingAlgorithm" : "leastConnections"
+  , "precision" : 0.001
+  , "classes" : { 
+    "ClassA" : {
+      "weight" : 0.75 , 
+      "versions" : {
+        "0.0.1" : { "weight": 0.70, "instances": [{ "host": "127.0.0.1", "port": 9000 }, { "host": "127.0.0.1", "port": 9999 }] }
+        , "0.2.3" : { "weight": 0.025 }
+        , "0.2.4Alpha" : { "weight": 0.025 }
+      } 
+    }
+    , "ClassB" : { 
+      "weight" : 0.25
+      , "versions" : { 
+        "0.1" : { "weight": 1.0 }
+      } 
+    } 
+  }
+}
