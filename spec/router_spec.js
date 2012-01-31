@@ -85,6 +85,20 @@ describe("Router", function(){
     });
   });
 
+  describe("#route", function(){
+    var res = {};
+    var req = {cookies: {nlbclientid: '3220264594410000'}};
+
+    beforeEach(function(){
+      spyOn(router.proxy, "proxyRequest");
+    });
+
+    it("should route using client-id from req.cookies", function(){
+      router.route(req, res);
+      expect(router.proxy.proxyRequest).toHaveBeenCalledWith(req, res, {host: '127.0.0.1', port: 9000});
+    });
+  });
+
   describe("#chooseInstance", function(){
     beforeEach(function(){
       router.readConfig();
