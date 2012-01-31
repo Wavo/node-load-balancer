@@ -12,6 +12,7 @@
   },
   "keywords": ["load","balancer","lean","ab", "testing","reverse", "proxy", "http"],
   "dependencies": {
+    "connect": "~1.8.5",
     "http-proxy": "~0.7.6"
   },
   "devDependencies": {
