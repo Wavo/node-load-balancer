@@ -31,8 +31,8 @@ describe("dispatcher", function(){
     expect(function(){ middleware({}, {}, function(){}); }).toThrow(middleware.cookieDecoderError);
   });
 
-  it("should call next", function(){
+  it("should not call next", function(){
     middleware(req, res, next);
-    expect(next).toHaveBeenCalled();
+    expect(next).wasNotCalled();
   });
 });
