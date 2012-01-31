@@ -102,7 +102,10 @@ describe("Router", function(){
 
   describe("#route", function(){
     var res = {};
-    var req = {cookies: {nlbclientid: '3220264594410000'}};
+    var req = {
+      on: function(){},
+      cookies: {nlbclientid: '3220264594410000'}
+    };
 
     beforeEach(function(){
       spyOn(router.proxy, "proxyRequest");
