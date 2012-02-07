@@ -1,4 +1,5 @@
 var dispatcher = require("../lib/node-load-balancer/dispatcher");
+var Router = require("../lib/node-load-balancer/router");
 
 describe("dispatcher", function(){
   var middleware = dispatcher({
@@ -21,6 +22,10 @@ describe("dispatcher", function(){
 
   beforeEach(function(){
     spyOn(res, "on").andCallThrough();
+  });
+
+  it("should have a router object", function(){
+    expect(dispatcher.router).toEqual(jasmine.any(Router));
   });
 
   it("should return a function", function(){
