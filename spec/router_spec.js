@@ -55,6 +55,28 @@ describe("Router", function(){
     });
   });
 
+  describe("#removeInstance", function(){
+    var table = {
+      ClassA : { 
+        "0.0.1" : [  ], 
+        "0.2.3" : [  ], 
+        "0.2.4Alpha" : [  ] 
+      }, 
+      ClassB : { 
+        "0.1" : [  ] 
+      } 
+    };
+
+    beforeEach(function(){
+      router.readConfig('./spec/fixtures/config.json');
+      router.addInstance(instance);
+    });
+
+    it("should remove instance from intances inside the right class/version array", function(){
+      expect(router.removeInstance(instance).routingTable).toEqual(table);
+    });
+  });
+
   describe("#addInstance", function(){
     var table = {
       ClassA : { 
