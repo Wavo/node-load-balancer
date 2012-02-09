@@ -40,4 +40,7 @@ describe("dispatcher", function(){
     middleware(req, res, next);
     expect(next).wasNotCalled();
   });
+
+  describe("POST /router/register", function(){
+  });
 });

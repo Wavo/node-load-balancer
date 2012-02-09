@@ -19,13 +19,13 @@ connect(
 var http = require('http');
 http.createServer(function (req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('request successfully proxied to 9000: ' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
+  res.write('request successfully proxied to 9000: \nMethod: ' + req.method + '\nURL: ' + req.url + '\n' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
   res.end();
 }).listen(9000); 
 
 http.createServer(function (req, res) {
   res.writeHead(200, { 'Content-Type': 'text/plain' });
-  res.write('request successfully proxied to 9999: ' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
+  res.write('request successfully proxied to 9999: \nMethod: ' + req.method + '\nURL: ' + req.url + '\n' + req.url +'\n' + JSON.stringify(req.headers, true, 2));
   res.end();
 }).listen(9999); 
-console.log("Express server listening on port 3000");
+console.log("server listening on port 3000");
